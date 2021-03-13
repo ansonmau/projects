@@ -1,1 +1,0 @@
-pyinstaller --noconfirm --onefile --nowindowed --icon "f:/Users/AnsonM/Pictures/IMG_0648.ico" --name "FixAmazonFile"  "F:/Users/AnsonM/Documents/_Code/Infonec/AmazonThing/FixAmazonFile.py"
