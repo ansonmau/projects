@@ -2,7 +2,6 @@ import pyperclip
 
 
 def SpecialPrint(message):
-
     if len(message) > 80:
         border = '-' * 80
     else:
