@@ -2,15 +2,6 @@ import pyperclip
 from vars import path_accounts_file
 
 
-def SpecialPrint(message):
-    if len(message) > 70:
-        border = '-' * 70
-    else:
-        border = '-' * len(message)
-
-    print("{}\n{}\n{}".format(border, message, border))
-
-
 def main():
 
     accountFile = open(path_accounts_file, "r")
