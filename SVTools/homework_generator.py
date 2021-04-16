@@ -1,4 +1,5 @@
 import pyperclip
+import os
 
 
 def SpecialPrint(message):
@@ -11,6 +12,8 @@ def SpecialPrint(message):
 
 
 def main():
+
+    os.system('cls')
 
     SpecialPrint("Homework Text Generator. Enter nothing to finish.")
 
