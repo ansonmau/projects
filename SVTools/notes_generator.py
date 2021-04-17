@@ -18,7 +18,7 @@ def getStudents(day):
     #   Students lists
     students_tues = ["Ethan"]
     students_wed = ["Jordan", "James", "Kathryn"]
-    students_fri = ["TEMPNAME"]
+    students_fri = ["Sruti"]
     students_sat = ["Haorui", "Niven", "Abi"]
 
     students = []
@@ -45,7 +45,8 @@ def SpecialPrint(message):
 
 
 def EnsurePeriod(string):
-    if not string[-1] in {'.', '?', '!'}:
+    string = string.strip()
+    if string[-1] not in {'.', '?', '!'}:
         string += '.'
     return string
 

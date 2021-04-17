@@ -37,6 +37,18 @@ def main():
             final_string += " || {}".format(sentence)
             count += 1
 
+    #   add in class replit link if i want to
+    replit = input("Class Replit: ")
+
+    if not len(replit) == 0:
+        final_string += " || Replit for this week's class: {}".format(replit)
+
+    #   add homework answers if i want to
+    hw_sol = input("Homework solution Replit: ")
+
+    if not len(hw_sol) == 0:
+        final_string += " || My solution for the homework (to use if you are stuck): {}"
+
     final_string += " || If you have any questions, message me on the SV website."
 
     SpecialPrint(final_string)
