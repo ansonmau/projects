@@ -34,22 +34,24 @@ def getRank(string):
 
 
 def updateInfo(accountData):
+    # boolean to check if any data was actually changed.
+    change = True
+
     try:
         print("UPDATE...")
 
         account_num = int(input("Account #: "))
 
-        print("[1] Rank\n[2] Ban")
-        choice = input("> ")
-
         # numbers are +1 from actual index
         account_num -= 1
 
-        # boolean to check if any data was actually changed.
-        change = True
+        print("ign: {}".format(accountData[account_num][IND_IGN]))
+
+        print("[1] Rank  [2] Ban")
+        choice = input("> ")
 
         if choice == "1":
-            new_rank = input("Example: G4\nBlank = unranked\nNew rank: ")
+            new_rank = input("Example: s3\nBlank = unranked\nNew rank: ")
             accountData[account_num][IND_RANK] = new_rank.upper()
         elif choice == "2":
             new_ban = input("Banned until: ")
@@ -105,6 +107,13 @@ def GetAccountData():
     return accountData
 
 
+def reset(sec):
+    sleep(sec)
+    system('cls')
+    GetAccountData()
+    return
+
+
 def main():
     RUN = True
 
@@ -117,21 +126,23 @@ def main():
         while True:
             choice = input("#: ")
 
-            if choice in {'x', 'exit', ''}:
-                RUN = False
-                print("Goodbye.")
-                break
-            elif choice == "update":
-                updateInfo(accountData)
-                sleep(1)
-                system('cls')
-                GetAccountData()
-                continue
-            # if the user is not trying to exit, make sure the choice is valid
-            elif int(choice) not in range(1, len(accountData)+1):
-                print("Enter smthn 1 - {}".format(len(accountData)))
+            if not choice.isdecimal():
+                if choice in {'x', 'exit', ''}:
+                    RUN = False
+                    print("Goodbye.")
+                    break
+                elif choice == "update":
+                    updateInfo(accountData)
+                    reset(1)
+                    continue
+                else:
+                    print("Bad input.")
+                    reset(1)
             else:
-                break
+                if int(choice) not in range(1, len(accountData)+1):
+                    print("Enter smthn 1 - {}".format(len(accountData)))
+                else:
+                    break
 
         if RUN:
             # get the choice in terms of indices and convert to int
