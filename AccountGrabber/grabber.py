@@ -28,7 +28,7 @@ def getRank(string):
         rank_letter = string[0]
         rank_division = string[1]
         rank_tier = rank_list[rank_letter]
-        rank = "{} {}".format(rank_tier, rank_division)
+        rank = "{} {} {}".format(rank_tier, rank_division, string[2:])
 
     return rank
 
@@ -36,10 +36,11 @@ def getRank(string):
 def updateInfo(accountData):
     try:
         print("UPDATE...")
-        print("[1] Rank\n[2] Ban")
-        choice = input("> ")
 
         account_num = int(input("Account #: "))
+
+        print("[1] Rank\n[2] Ban")
+        choice = input("> ")
 
         # numbers are +1 from actual index
         account_num -= 1
@@ -62,6 +63,7 @@ def updateInfo(accountData):
     except:
         print("ERROR! Aborting.")
         change = False
+
     if change:
         accountFile = open(path_accounts_file, "w")
 
@@ -91,12 +93,12 @@ def GetAccountData():
 
         ban = accountData[-1][IND_BAN]
         if ban:
-            ban = "Banned until {}".format(ban)
+            ban = "> Banned until {}".format(ban)
 
         # print out the ign and the number option next to it
-        print("[{:2}] {:15} | {:^10} | {}".format(len(accountData),
-                                                  accountData[-1][IND_IGN],
-                                                  rank, ban))
+        print("[{:2}] {:15} | {} {}".format(len(accountData),
+                                            accountData[-1][IND_IGN],
+                                            rank, ban))
 
     accountFile.close()
 
