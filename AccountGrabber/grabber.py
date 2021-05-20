@@ -12,6 +12,34 @@ IND_USER = 3
 IND_PASS = 4
 
 
+def GetAccountData():
+    accountFile = open(path_accounts_file, "r")
+
+    accountData = []
+
+    for line in accountFile:
+        # remove the \n at the end
+        line = line.strip()
+
+        accountData.append(line.split(","))
+
+        rank = getRank(accountData[-1][IND_RANK])
+        ban = accountData[-1][IND_BAN]
+
+        if ban:
+            ban = " > Banned until {}".format(ban)
+
+        # print out the ign and the number option next to it
+        print("[{:2}] {:15} | {:10} {}".format(len(accountData),
+                                               accountData[-1][IND_IGN],
+                                               rank,
+                                               ban))
+
+    accountFile.close()
+
+    return accountData
+
+
 def getRank(string):
 
     if len(string) < 2:
@@ -27,8 +55,11 @@ def getRank(string):
         }
         rank_letter = string[0]
         rank_division = string[1]
-        rank_tier = rank_list[rank_letter]
-        rank = "{} {} {}".format(rank_tier, rank_division, string[2:])
+        try:
+            rank_tier = rank_list[rank_letter]
+            rank = "{} {} {}".format(rank_tier, rank_division, string[2:])
+        except:
+            rank = "UNDEFINED"
 
     return rank
 
@@ -50,18 +81,27 @@ def updateInfo(accountData):
         print("[1] Rank  [2] Ban")
         choice = input("> ")
 
-        if choice == "1":
+        if choice in {'1', 'rank'}:
             new_rank = input("Example: s3\nBlank = unranked\nNew rank: ")
+
+            while not (len(new_rank) == 0 or new_rank[1].isdecimal()):
+                print("Bad format...")
+                new_rank = input("Example: s3\nBlank = unranked\nNew rank: ")
+
             accountData[account_num][IND_RANK] = new_rank.upper()
-        elif choice == "2":
+
+        elif choice in {'2', 'ban'}:
             new_ban = input("Banned until: ")
-            if ',' in new_ban:
+
+            while ',' in new_ban:
                 print("can't have ','")
-            else:
-                accountData[account_num][IND_BAN] = new_ban
+                new_ban = input("Banned until: ")
+
+            accountData[account_num][IND_BAN] = new_ban
         else:
             print("Bad input.")
             change = False
+
     except:
         print("ERROR! Aborting.")
         change = False
@@ -80,37 +120,15 @@ def updateInfo(accountData):
     return
 
 
-def GetAccountData():
-    accountFile = open(path_accounts_file, "r+")
-
-    accountData = []
-
-    for line in accountFile:
-        # remove the \n at the end
-        line = line.strip()
-
-        accountData.append(line.split(","))
-
-        rank = getRank(accountData[-1][IND_RANK])
-
-        ban = accountData[-1][IND_BAN]
-        if ban:
-            ban = "> Banned until {}".format(ban)
-
-        # print out the ign and the number option next to it
-        print("[{:2}] {:15} | {} {}".format(len(accountData),
-                                            accountData[-1][IND_IGN],
-                                            rank, ban))
-
-    accountFile.close()
-
-    return accountData
-
-
 def reset(sec):
     sleep(sec)
     system('cls')
     GetAccountData()
+    return
+
+
+def sort(sortby, accountData):
+    # to do
     return
 
 
@@ -131,16 +149,24 @@ def main():
                     RUN = False
                     print("Goodbye.")
                     break
-                elif choice == "update":
+                elif 'update' in choice:
                     updateInfo(accountData)
                     reset(1)
                     continue
+                elif "sort" in choice:
+                    sortby = choice[5:]
+                    if sortby == 'rank':
+                        sort('rank', accountData)
+                    elif sortby == 'ban':
+                        sort('ban', accountData)
+                    else:
+                        print("sort [rank, ban]")
                 else:
                     print("Bad input.")
                     reset(1)
             else:
                 if int(choice) not in range(1, len(accountData)+1):
-                    print("Enter smthn 1 - {}".format(len(accountData)))
+                    print("Non-valid number".format(len(accountData)))
                 else:
                     break
 
@@ -153,7 +179,7 @@ def main():
             password = accountData[choice][-1]
 
             pyperclip.copy(username)
-            input("::> Username copied. Press enter to copy password.")
+            input("::> Username copied.")
 
             pyperclip.copy(password)
             print("::> Password copied.")

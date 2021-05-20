@@ -1,5 +1,6 @@
 import random
 from os import system
+py
 
 
 def main():

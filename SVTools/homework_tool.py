@@ -38,22 +38,24 @@ def main():
             count += 1
 
     #   add in class replit link if i want to
-    replit = input("Class Replit: ")
+    replit_class_string = input("Class Replit: ")
 
-    if not len(replit) == 0:
-        final_string += " || Replit for this week's class: {}".format(replit)
+    if len(replit_class_string) > 0:
+        final_string += " || Replit for this week's class: {}".format(
+            replit_class_string)
 
     #   add homework answers if i want to
-    hw_sol = input("Homework solution Replit: ")
+    replit_homework_string = input("Homework solution Replit: ")
 
-    if not len(hw_sol) == 0:
-        final_string += " || My solution for the homework (to use if you are stuck): {}"
+    if len(replit_homework_string) > 0:
+        final_string += " || My solution for the homework (use if stuck): {}".format(
+            replit_homework_string)
 
     final_string += " || If you have any questions, message me on the SV website."
 
     SpecialPrint(final_string)
-    print("(Text is copied to clipboard)")
     pyperclip.copy(final_string)
+    print("(Text is copied to clipboard)")
 
     return
 
