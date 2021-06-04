@@ -5,7 +5,6 @@ import selenium.webdriver.support.expected_conditions as EC
 from selenium.webdriver.common.keys import Keys
 from time import sleep
 from datetime import datetime
-import secret
 
 STARTDATE = ''
 ENDDATE = ''

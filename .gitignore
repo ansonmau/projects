@@ -1,4 +1,11 @@
 assets/*
+.vscode
+__pycache__
+
 vars.py
 secret.py
+secret.txt
+
 *.txt
+*.xlsx
+*.accdb

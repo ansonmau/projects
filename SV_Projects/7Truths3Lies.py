@@ -1,4 +1,5 @@
 import random
+from time import sleep
 
 
 def Scramble(dict):
@@ -28,40 +29,43 @@ def main():
     }
 
     lives = 7  # lives counter
-
+    lies_found = 0  # count the num of lies they have guessed
     # get the current edition of dict (changes everytime we run the program)
     currDict = Scramble(dict)
 
     print("Anson's 7 truths and 3 lies!")
-    while(lives > 0):
+    while lives > 0 and lies_found < 3:
         # list out the scrambled version of dict
         PrintDict(currDict)
         validChoice = False
         choice = 0
 
         print("\n{} lives left".format(lives))
+
         # checks if the input is valid
-        while(not validChoice):
+        while not validChoice:
             choice = input(
                 "Guess the lie (1 - {}): ".format(len(currDict)))
             try:
-                choice = int(choice)
-                if (choice >= 1 and choice <= len(currDict)):
+                choice = int(choice) - 1
+                if (choice >= 0 and choice < len(currDict)):
                     validChoice = True
-                    choice -= 1
                 else:
                     print("Invalid selection.")
             except:
                 print("Invalid selection.")
-        if (dict[currDict[choice]]) == False:
+
+        if not (dict[currDict[choice]]):
             print("Correct! That was a lie.")
             currDict.pop(choice)
+            lies_found += 1
         else:
             print("Nope! That was true.")
             lives -= 1
             if lives == 0:
                 break
-        input("")
+
+        sleep(1)
 
     if (lives == 0):
         print("You lose :(")

@@ -37,6 +37,12 @@ def main():
             final_string += " || {}".format(sentence)
             count += 1
 
+    # add example input and output if needed
+    example_io = input("Example input/output image: ")
+
+    if len(example_io) > 0:
+        final_string += " || Example input/output: {}".format(example_io)
+
     #   add in class replit link if i want to
     replit_class_string = input("Class Replit: ")
 

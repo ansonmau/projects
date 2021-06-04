@@ -5,9 +5,9 @@ import os
 
 def getStudents(day):
     #   Students lists
-    students_tues = ["Nathaniel", "Ethan", "Gurnoor", "Liam"]
+    students_tues = ["Nathaniel", "Ethan", "Gurnoor"]
     students_fri_1 = ["Sruti"]
-    students_fri_2 = ["Leo", "Madhav"]
+    students_fri_2 = ["Madhav", "Leo"]
     students_sat = ["Ariana", "Asha", "Oscar"]
 
     students = []
@@ -15,9 +15,10 @@ def getStudents(day):
     if day == "Tuesday":
         students = students_tues
     elif day == "Friday":
-        choice = input("Friday class 1 or 2?: ")
+        question = "[1] 5:00 - 6:00pm\t[2] 6:15 - 7:15pm\n"
+        choice = input(question)
         while choice not in {'1', '2'}:
-            choice = input("[1] 5:00 - 6:00pm\t[2] 6:15-7:15pm\n")
+            choice = input(question)
         if choice == "1":
             students = students_fri_1
         else:
@@ -89,11 +90,11 @@ def main():
     closing_sentence = EnsurePeriod(closing_sentence)
 
     if input("\nEncourage MVP? (Y/N): ") in {'Y', 'y'}:
-        choice = input("[1] JR\t[2] SR\n")
+        choice = input("[1] JR (6-10) | [2] SR (10-18)\n")
         if choice in {'1', 'jr'}:
-            mvp_sentence = "Students are encouraged to watch the MVP livestreams on Wednesdays at 5pm (twitch.tv/svroboticsacademy or svrobotics.ca/MVP)."
+            mvp_sentence = "Students are encouraged to watch the MVP livestreams on Wednesdays at 5pm (https://twitch.tv/svroboticsacademy or https://svrobotics.ca/MVP)."
         elif choice in {'2', 'sr'}:
-            mvp_sentence = "Students are encouraged to watch the MVP livestreams on Tuesdays at 7pm (twitch.tv/svroboticsacademy or svrobotics.ca/MVP)."
+            mvp_sentence = "Students are encouraged to watch the MVP livestreams on Tuesdays at 7pm (https://twitch.tv/svroboticsacademy or https://svrobotics.ca/MVP)."
     else:
         mvp_sentence = ""
 

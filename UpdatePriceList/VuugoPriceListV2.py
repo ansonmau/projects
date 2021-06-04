@@ -5,8 +5,10 @@ VERSION = 2.5
 
 # item class to hold item information
 
+# item object that will hold all relevant information on each specified item
 
-class item: 															# item object that will hold all relevant information on each specified item
+
+class item:
     def __init__(self, type1, type2, manu, quantity, price, name):
         self.type1 = type1
         self.type2 = type2
@@ -51,6 +53,8 @@ def loadingBar(curr, total, total_div):
         # if it goes over the maximum (100%) amount, do nothing (this is possible because div * total_div may be less than total)
     sleep(0.005)  												# artifical pause
 
+    return
+
 
 # CSV File index constants
 QB_NAME_COL = 29
@@ -60,7 +64,7 @@ QB_PRICE1_COL = 25
 QB_ITEM_TYPE_COL = 3
 
 # print version
-print("Version: {}".format(VERSION))
+print("VERSION {}".format(VERSION))
 
 # try to open "pricelist.csv"
 opened = False
@@ -108,9 +112,12 @@ del items[0]
 
 # set current type1 (in this case it is the very first one)
 type1 = items[0].type1
+
 # set current type2 (in this case it is the very first one)
 type2 = items[0].type2
+
 x, y = 1, 1  # creates xy coordinate that will act as a 'cursor'
+
 titles = ["Manufacturer's Number", "Quantity",
           "Price", "Item Name"]  # title names
 item_num = 0

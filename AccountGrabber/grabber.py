@@ -1,7 +1,7 @@
-import pyperclip
 from time import sleep
 from os import system
 from vars import path_accounts_file
+from pynput.keyboard import Key, Controller
 
 # Constants
 DIV = "-" * 70
@@ -10,6 +10,14 @@ IND_RANK = 1
 IND_BAN = 2
 IND_USER = 3
 IND_PASS = 4
+
+keyboard = Controller()
+
+
+def closestName(name):
+    name = ''
+
+    return name
 
 
 def GetAccountData():
@@ -27,7 +35,7 @@ def GetAccountData():
         ban = accountData[-1][IND_BAN]
 
         if ban:
-            ban = " > Banned until {}".format(ban)
+            ban = "-- Banned: ``{}".format(ban)
 
         # print out the ign and the number option next to it
         print("[{:2}] {:15} | {:10} {}".format(len(accountData),
@@ -145,7 +153,7 @@ def main():
             choice = input("#: ")
 
             if not choice.isdecimal():
-                if choice in {'x', 'exit', ''}:
+                if choice in {'x', 'exit'}:
                     RUN = False
                     print("Goodbye.")
                     break
@@ -178,12 +186,17 @@ def main():
             username = accountData[choice][-2]
             password = accountData[choice][-1]
 
-            pyperclip.copy(username)
-            input("::> Username copied.")
+            for i in range(3, 0, -1):
+                print("Sending keys in {}".format(i), end='\r')
+                sleep(1)
 
-            pyperclip.copy(password)
-            print("::> Password copied.")
-            sleep(1)
+            keyboard.type(username)
+            keyboard.press(Key.tab)
+            keyboard.release(Key.tab)
+            keyboard.type(password)
+            keyboard.press(Key.enter)
+            keyboard.release(Key.enter)
+
             system('cls')
 
     return
